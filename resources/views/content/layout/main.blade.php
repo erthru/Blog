@@ -8,14 +8,14 @@
     </head>
 
     <body>
-        @include("content.layout.header")
+        @include("content.layout.top")
         
         <br />
 
         <div class="container">
             <div class="row">
                 <div class="col-md-3">
-                    @include("content.layout.sidebar")
+                    @include("content.layout.side")
                 </div>
 
                 <div class="col-md-9">

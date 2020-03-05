@@ -1,4 +1,4 @@
-@extends("content.layout.Master")
+@extends("content.layout.main")
 @section("title", "Welcome")
 @section("content")
 <div>
