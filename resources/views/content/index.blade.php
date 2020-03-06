@@ -16,7 +16,7 @@
 
                     <p class="mt-3 text-body max-lines-3">Lorem ipsum dolor sit amet,  adipiscing elit. Nullam dignissim convallis est. Quisque aliquam. Donec faucibus. Nunc iaculis suscipit dui. Namrun dkk wkwkkwwkkwasdfhaui fgawuig fuiawgfiuawg fiugawifug uiawgfu ia</p>
                 
-                    <a href="/detail/2" class="btn btn-danger w-100">LIHAT</a>
+                    <a href="/detail/" class="btn btn-danger w-100">LIHAT</a>
                 </div>
             </div>
         </div>
