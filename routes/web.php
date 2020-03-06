@@ -17,6 +17,6 @@ Route::get('/', function () {
     return view('content/index');
 });
 
-Route::get('/detail', function () {
+Route::get('/detail/{id}', function () {
     return view('content/detail');
 });
