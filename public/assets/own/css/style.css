@@ -1,62 +1,133 @@
-.center-block {
-    margin-left:auto;
-    margin-right:auto;
-    display:table;
- }
+body{
+    background-color: #ebebeb
+}
 
-.right-block {
+.header-section{
+
+}
+
+.header-top{
+    background-color: black;
+}
+
+.header-top-left{
+    margin-right: auto;
+    display: table;
+    font-size: 12px;
+}
+
+.header-top-right{
     margin-left: auto;
     display: table;
 }
 
-.text-center {
-    text-align:center
+.header-title{
+    background-color: white;
+    text-align: center;
+    font-size: 120px;
 }
 
-.text-top {
-    font-size: 12px
+.header-title a{
+    color: black;
 }
 
-.text-top-1 {
-   font-size: 14px
+.header-nav{
+    background-color: white;
+    margin-top: -20px;
+    padding-top: 40px;
+    padding-bottom: 3px;
 }
 
-.max-lines-3 {
-    overflow: hidden;
-    text-overflow: ellipsis;
-    display: -webkit-box;
-    -webkit-box-orient: vertical;
-    -webkit-line-clamp: 3; 
+.header-nav-content{
+    margin-top: -15px;
 }
 
-.content {
+.header-nav-content a{
+    color: black;
+}
+
+.content-section{
     display: flex;
     flex-direction: column;
     min-height: 100vh;
 }
 
-footer {
+.content-body{
+    
+}
+
+.footer-section{
+    background-color: white;
+    padding-top: 15px;
+    padding-bottom: 30px;
     flex-shrink: 0;
+}
+
+.footer-left{
+    margin-right: auto;
+    display: table;
+}
+
+.footer-right{
+    margin-left: auto;
+    display: table;
 }
 
 .grid-item{
     padding: 10;
 }
 
-@media (min-width: 576px) { 
+@media (max-width: 575.98px){
+    .header-top-left{
+        margin-left: auto;
+    }
+    
+    .header-top-right{
+        margin-right: auto;
+    }
+
+    .header-nav-content{
+        text-align: center;
+        margin-left: auto;
+        margin-right: auto;
+        display: table;
+    }
+
+    .grid-item{
+        width: 100%;
+    }
+
+    .footer-left{
+        margin-left: auto;
+    }
+    
+    .footer-right{
+        padding-top: 20px;
+        margin-right: auto;
+    }
+}
+
+@media (max-width: 768px) {
     .grid-item{
         width: 100%;
     }
 }
 
-@media (min-width: 768px) {
-    .grid-item{
-        width: 50%;
+@media (min-width: 991.98px) {
+    .header-top-right{
+        padding-top: 2px;
+        display: table;
     }
-}
 
-@media (min-width: 992px) { 
     .grid-item{
         width: 33.3%;
     }
+}
+
+.max-lines-3{
+    overflow: hidden;
+    text-overflow: ellipsis;
+    display: -webkit-box;
+    -webkit-box-orient: vertical;
+    -webkit-line-clamp: 3; 
 }
