@@ -124,6 +124,14 @@ body{
     margin-top: 20px;
 }
 
+.content-related-list a{
+    color: black;
+}
+
+.content-related-list a:hover{
+    text-decoration: none;
+}
+
 .footer-section{
     background-color: white;
     padding-top: 15px;

@@ -7,20 +7,18 @@
             @if($item["type"] == "content")
                 <div class="grid-item">
                     <div class="card">
-                        @if(!empty($item["content"]["thumb"]))
-                            <img src="{{ url('/img') . '/' . $item['content']['thumb'] }}" class="card-img-top"/>
-                        @endif
+                        <img src="{{ url('/img') . '/' . $item['content']['thumb'] }}" class="card-img-top"/>
 
                         <div class="card-body">
                             <i class="fas fa-grip-lines text-danger fa-sm"></i>
                             <strong style="font-size: 17px" class="text-black-50 ml-2">Article</strong>
 
                             <h5 class="card-title mt-2">{{ $item["content"]["title"] }}</h5>
-                            <h6 class="card-subtitle text-muted" style="margin-top: -8px">12 Januari 2021</h6>
+                            <h6 class="card-subtitle text-muted" style="margin-top: -8px">{{ dateFormat($item["content"]["created_at"]) }}</h6>
 
                             <p class="mt-3 text-body max-lines-3">{{ $item["content"]["body"] }}</p>
                         
-                            <a href="/detail/2" class="btn btn-danger w-100">LIHAT</a>
+                            <a href="/{{ preg_replace('/\s+/', '-', strtolower($item['content']['title'])) }}" class="btn btn-danger w-100">LIHAT</a>
                         </div>
                     </div>
                 </div>
@@ -54,13 +52,13 @@
 </div>
 
 <script>
-    $(document).ready(function(){
+    window.addEventListener('load', function () {
         $('.grid').masonry({
             itemSelector: '.grid-item',
             horizontalOrder: true,
             percentPosition: true
         });
-    });
+    })
 </script>
 @endsection
 

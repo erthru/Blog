@@ -6,6 +6,7 @@
 /public/avatar/*
 /public/img/*
 !/public/avatar/default_avatar.PNG
+!/public/img/default_thumbnail.jpg
 .env
 .env.backup
 .phpunit.result.cache

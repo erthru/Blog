@@ -5,6 +5,7 @@ namespace App\Http\Controllers;
 use Illuminate\Http\Request;
 use App\Content;
 use App\Quote;
+use App\Tag;
 
 class ContentController extends Controller
 {
@@ -38,7 +39,7 @@ class ContentController extends Controller
         usort($mix, $this->buildSorter("created_at"));
 
         $data = [
-            "mix" => $mix
+            "mix" => (object) $mix
         ];
 
         return view("content.index", $data);
@@ -55,6 +56,24 @@ class ContentController extends Controller
 
     public function detail($name)
     {
-        return view("content.detail");
+        $fixName = preg_replace('/[\-]/', ' ', $name);
+        $content = Content::with("writer")->with("tag")->where("title", $fixName)->first();
+        
+        $tagFromContent = "";
+
+        foreach($content->tag as $tag){
+            $tagFromContent .= "'" . $tag->name . "',";
+        }
+
+        $tagFromContent = substr($tagFromContent, 0, -1);
+        
+        $related = empty($tagFromContent) ? null : Tag::with("content")->whereRaw("name IN ($tagFromContent) AND content_id != " . $content->id)->groupBy("content_id")->take(3)->get();
+
+        $data = [
+            "content" => $content,
+            "related" => $related
+        ];
+
+        return view("content.detail", $data);
     }
 }
