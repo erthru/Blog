@@ -13,6 +13,11 @@ class Writer extends Model
         return $this->hasMany("App\Content", "writer_id", "id");
     }
 
+    public function quote()
+    {
+        return $this->hasMany("App\Quote", "writer_id", "id");
+    }
+
     public function credential()
     {
         return $this->hasOne("App\Credential");

@@ -3,6 +3,9 @@
 /public/storage
 /storage/*.key
 /vendor
+/public/avatar/*
+/public/img/*
+!/public/avatar/default_avatar.PNG
 .env
 .env.backup
 .phpunit.result.cache

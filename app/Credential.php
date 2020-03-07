@@ -6,7 +6,7 @@ use Illuminate\Database\Eloquent\Model;
 
 class Credential extends Model
 {
-    protected $fillable = ["level", "email", "password"];
+    protected $fillable = ["id", "email", "password"];
 
     public function writer()
     {
