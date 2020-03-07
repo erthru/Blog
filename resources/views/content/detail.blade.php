@@ -1,5 +1,9 @@
 @extends("content.app")
-@section("title", "Content title")
+
+@section("title")
+    {{ $content->title }}
+@endsection
+
 @section("content")
     <div class="container">
         <div class="card">
