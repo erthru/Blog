@@ -1,10 +1,10 @@
-@extends("content.app")
+@extends("index.app")
 
 @section("title")
     {{ $content->title }}
 @endsection
 
-@section("content")
+@section("body")
     <div class="container">
         <div class="card">
             <div class="card-body">

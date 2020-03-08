@@ -15,3 +15,7 @@ use Illuminate\Support\Facades\Route;
 
 Route::get('/', "ContentController@index");
 Route::get('/{name}', "ContentController@detail");
+Route::get("/dashboard/content", "WriterController@index");
+Route::get("/dashboard/login", "CredentialController@index");
+
+Route::post("/dashboard/login", "CredentialController@login");

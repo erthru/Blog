@@ -1,7 +1,7 @@
 <html>
     <head>
         @include("head")
-        <title>@yield("title") | Erthru</title>
+        <title>@yield("title") | {{ env("APP_NAME") }}</title>
     </head>
 
     <body>
@@ -55,7 +55,7 @@
 
         <main>
             <div class="content-section">
-                @yield("content")
+                @yield("body")
             </div>
         </main>
 

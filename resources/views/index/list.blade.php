@@ -1,6 +1,6 @@
-@extends("content.app")
+@extends("index.app")
 @section("title", "Selamat Datang Di, eh apa ini ?")
-@section("content")
+@section("body")
 <div class="container">
     <div class="grid">
         @foreach($mix as $item)

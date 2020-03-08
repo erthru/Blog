@@ -42,16 +42,7 @@ class ContentController extends Controller
             "mix" => (object) $mix
         ];
 
-        return view("content.index", $data);
-    }
-
-    private function buildSorter($key, $dir='DESC') {
-        return function ($a, $b) use ($key, $dir) {
-            $t1 = strtotime(is_array($a) ? $a[$key] : $a->$key);
-            $t2 = strtotime(is_array($b) ? $b[$key] : $b->$key);
-            if ($t1 == $t2) return 0;
-            return (strtoupper($dir) == 'ASC' ? ($t1 < $t2) : ($t1 > $t2)) ? -1 : 1;
-        };
+        return view("index.list", $data);
     }
 
     public function detail($name)
@@ -59,21 +50,35 @@ class ContentController extends Controller
         $fixName = preg_replace('/[\-]/', ' ', $name);
         $content = Content::with("writer")->with("tag")->where("title", $fixName)->first();
         
-        $tagFromContent = "";
+        if($content){
+            $tagFromContent = "";
 
-        foreach($content->tag as $tag){
-            $tagFromContent .= "'" . $tag->name . "',";
+            foreach($content->tag as $tag){
+                $tagFromContent .= "'" . $tag->name . "',";
+            }
+
+            $tagFromContent = substr($tagFromContent, 0, -1);
+            
+            $related = empty($tagFromContent) ? null : Tag::with("content")->whereRaw("name IN ($tagFromContent) AND content_id != " . $content->id)->groupBy("content_id")->take(3)->get();
+
+            $data = [
+                "content" => $content,
+                "related" => $related
+            ];
+
+            return view("index.detail", $data);
+        }else{
+            abort(404);
         }
+    }
 
-        $tagFromContent = substr($tagFromContent, 0, -1);
-        
-        $related = empty($tagFromContent) ? null : Tag::with("content")->whereRaw("name IN ($tagFromContent) AND content_id != " . $content->id)->groupBy("content_id")->take(3)->get();
-
-        $data = [
-            "content" => $content,
-            "related" => $related
-        ];
-
-        return view("content.detail", $data);
+    private function buildSorter($key, $dir='DESC') 
+    {
+        return function ($a, $b) use ($key, $dir) {
+            $t1 = strtotime(is_array($a) ? $a[$key] : $a->$key);
+            $t2 = strtotime(is_array($b) ? $b[$key] : $b->$key);
+            if ($t1 == $t2) return 0;
+            return (strtoupper($dir) == 'ASC' ? ($t1 < $t2) : ($t1 > $t2)) ? -1 : 1;
+        };
     }
 }
