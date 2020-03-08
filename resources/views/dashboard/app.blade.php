@@ -9,6 +9,7 @@
             <div class="dashboard-header-section">
                 <a href="#collapseSidebar" class="pr-3 dashboard-header-toggler" data-toggle="collapse"><i class="fas fa-bars fa-1x text-white"></i></a>
                 <span><strong>Dashboard</strong></span>
+                <i class="fas fa-sign-out-alt fa-1x text-white" style="position: absolute; right: 16px"></i>
             </div>
         </header>
 
@@ -70,11 +71,20 @@
                </div>
 
                <div class="col-12 col-md-10">
+                    <div class="alert alert-success" style="margin-top: 16px; margin-right: 16px; margin-left: 16px">
+                        Login sebagai: <strong>{{ $writer->full_name }}</strong>
+                    </div>
                     @yield("main")
                </div>
            </div>   
         </main>
 
-        <footer></footer>
+        <footer>
+            <div class="dashboard-footer-section">
+                <div style="position:absolute; right: 16px;">
+                    &copy; {{ now()->year }} - erthru.id
+                </div>
+            </div>
+        </footer>
     </body>
 </html>

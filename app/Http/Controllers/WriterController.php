@@ -3,6 +3,7 @@
 namespace App\Http\Controllers;
 
 use Illuminate\Http\Request;
+use App\Writer;
 
 class WriterController extends Controller
 {
@@ -12,6 +13,12 @@ class WriterController extends Controller
             return redirect("/dashboard/login");
         }
 
-        return view("dashboard.main");
+        $writer = Writer::find($request->session()->get("id"));
+
+        $data = [
+            "writer" => $writer
+        ];
+
+        return view("dashboard.main", $data);
     }
 }
