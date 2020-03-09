@@ -217,15 +217,6 @@ html, body{
     }
 }
 
-.max-lines-3{
-    overflow: hidden;
-    text-overflow: ellipsis;
-    display: -webkit-box;
-    -webkit-box-orient: vertical;
-    -webkit-line-clamp: 3; 
-}
-
-
 /* Dashboard Section */
 
 .dashboard-header-section {
@@ -242,7 +233,7 @@ html, body{
 }
 
 .dahboard-sidebar {
-    background-color: grey;
+    background-color: #2e2e2e;
     margin-bottom: -5000px;
     padding-bottom: 5000px;
     overflow-x: hidden;
@@ -258,13 +249,14 @@ html, body{
 }
 
 .dahboard-sidebar hr{
-    background-color: #cfcfcf;
+    background-color: #575757;
 }
 
 .dashboard-content-section{
     padding-bottom: 16px;
     padding-left: 16px;
     padding-right: 16px;
+    padding-top: 16px;
     display: flex;
     flex-direction: column;
     min-height: 100vh;
@@ -287,4 +279,20 @@ html, body{
         margin-bottom: 0;
         padding-bottom: 20px;
     }
+}
+
+/* etc */
+
+.max-lines-3{
+    overflow: hidden;
+    text-overflow: ellipsis;
+    display: -webkit-box;
+    -webkit-box-orient: vertical;
+    -webkit-line-clamp: 3; 
+}
+
+.center-block{
+    margin-right: auto;
+    margin-left: auto;
+    display: table;
 }

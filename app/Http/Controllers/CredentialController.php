@@ -17,7 +17,7 @@ class CredentialController extends Controller
         return view("login");
     }
 
-    public function login(Request $request)
+    public function loginAction(Request $request)
     {
         $body = [
             "email" => $request->input("email"),
@@ -32,5 +32,11 @@ class CredentialController extends Controller
         }else{
             return redirect("/dashboard/login")->with("loginError", "Login gagal, email atau password salah");
         }
+    }
+
+    public function logoutAction(Request $request)
+    {
+        $request->session()->forget("id");
+        return redirect("/dashboard/login")->with("logoutSuccess", "Anda telah logout");
     }
 }

@@ -14,6 +14,10 @@
                                 @if(session("loginError"))
                                     <div class="alert alert-danger">{{ session("loginError") }}</div>
                                 @endif
+
+                                @if(session("logoutSuccess"))
+                                    <div class="alert alert-danger">{{ session("logoutSuccess") }}</div>
+                                @endif
                                 
                                 <h4><strong>DASHBOARD LOGIN</strong></h4>
                                 <form method="post" action="/dashboard/login" class="mt-4">

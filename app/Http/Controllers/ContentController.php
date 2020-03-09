@@ -6,6 +6,7 @@ use Illuminate\Http\Request;
 use App\Content;
 use App\Quote;
 use App\Tag;
+use App\Writer;
 
 class ContentController extends Controller
 {
@@ -45,7 +46,7 @@ class ContentController extends Controller
         return view("index.list", $data);
     }
 
-    public function detail($name)
+    public function detailView($name)
     {
         $fixName = preg_replace('/[\-]/', ' ', $name);
         $content = Content::with("writer")->with("tag")->where("title", $fixName)->first();
@@ -70,6 +71,32 @@ class ContentController extends Controller
         }else{
             abort(404);
         }
+    }
+
+    public function dashboardContentView(Request $request)
+    {
+        if(!$request->session()->has("id")){
+            return redirect("/dashboard/login");
+        }
+
+        $writer = Writer::find($request->session()->get("id"));
+        $content = Content::with("writer")->orderBy("id", "DESC")->paginate(15);
+
+        $data = [
+            "writer" => $writer,
+            "content" => $content
+        ];
+
+        return view("dashboard.content", $data);
+    }
+
+    public function dashboardContentAddView(Request $request)
+    {
+        if(!$request->session()->has("id")){
+            return redirect("/dashboard/login");
+        }
+
+        return view("dashboard.content_add");
     }
 
     private function buildSorter($key, $dir='DESC') 
