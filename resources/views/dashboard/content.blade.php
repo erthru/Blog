@@ -4,6 +4,10 @@
     <div class="dashboard-content-section">
         <div class="card">
             <div class="card-body">
+                @if(session("successMsg"))
+                    <div class="alert alert-success">{{ session("successMsg") }}</div>
+                @endif
+                
                 <div class="row">
                     <div class="col-12 col-md-9">
                         <h4><strong>KONTEN</strong></h4>

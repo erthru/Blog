@@ -75,9 +75,7 @@ class ContentController extends Controller
 
     public function dashboardContentView(Request $request)
     {
-        if(!$request->session()->has("id")){
-            return redirect("/dashboard/login");
-        }
+        $this->checkAuth($request);
 
         $writer = Writer::find($request->session()->get("id"));
         $content = Content::with("writer")->orderBy("id", "DESC")->paginate(15);
@@ -92,20 +90,38 @@ class ContentController extends Controller
 
     public function dashboardContentAddView(Request $request)
     {
-        if(!$request->session()->has("id")){
-            return redirect("/dashboard/login");
-        }
-
+        $this->checkAuth($request);
         return view("dashboard.content_add");
     }
 
-    private function buildSorter($key, $dir='DESC') 
+    public function addAction(Request $request)
     {
-        return function ($a, $b) use ($key, $dir) {
-            $t1 = strtotime(is_array($a) ? $a[$key] : $a->$key);
-            $t2 = strtotime(is_array($b) ? $b[$key] : $b->$key);
-            if ($t1 == $t2) return 0;
-            return (strtoupper($dir) == 'ASC' ? ($t1 < $t2) : ($t1 > $t2)) ? -1 : 1;
-        };
+        $this->checkAuth($request);
+
+        $writer = Writer::find($request->session()->get("id"));
+
+        $thumbnail = "default_thumbnail.jpg";
+
+        if($request->hasFile("thumbnail")){
+            $thumbnail = uniqid(). ".jpg";
+
+            if($request->file("thumbnail")->getClientOriginalExtension() == "jpg" || $request->file("thumbnail")->getClientOriginalExtension() == "jpeg"){
+                imagejpeg(imagecreatefromjpeg($request->file("thumbnail")),"img/".$thumbnail,50);
+            }else{
+                imagepng(imagecreatefrompng($request->file("thumbnail")),"img/".$thumbnail,5);
+            }
+        }
+
+        $body = [
+            "title" => $request->input("title"),
+            "body" => $request->input("body"),
+            "thumb" => $thumbnail,
+            "is_page" => $request->input("isPage") ?: 0,
+            "writer_id" => $writer->id
+        ];
+
+        Content::create($body);
+
+        return redirect("/dashboard/content")->with("successMsg", "Data ditambahkan.");
     }
 }
