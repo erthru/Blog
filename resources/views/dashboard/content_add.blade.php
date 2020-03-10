@@ -39,7 +39,7 @@
                         <div class="col-12">
                             <div class="form-group form-check">
                                 <input type="checkbox" class="form-check-input" name="isPage" value="1"/>
-                                <label class="form-check-label" for="exampleCheck1">Set sebagai laman. <a href="#modalLamanInfo" data-toggle="modal">Info?</a></label>
+                                <label class="form-check-label">Set sebagai laman. <a href="#modalLamanInfo" data-toggle="modal">Info?</a></label>
                             </div>
 
                             <button type="submit" class="btn btn-success">TAMBAH</button>
@@ -84,7 +84,7 @@
     <script>
         ClassicEditor.create(document.querySelector('#body'), {
             ckfinder: {
-                uploadUrl: "http://localhost:8000/api/open/external/ckeditor_upload_image"
+                uploadUrl: "/api/open/external/ckeditor_upload_image"
             }
         });
     </script>

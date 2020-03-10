@@ -12,14 +12,14 @@ class ExternalController extends Controller
             $ckeditor = uniqid(). ".jpg";
 
             if($request->file("upload")->getClientOriginalExtension() == "jpg" || $request->file("upload")->getClientOriginalExtension() == "jpeg"){
-                imagejpeg(imagecreatefromjpeg($request->file("upload")),"img/ckeditor/".$ckeditor,50);
+                imagejpeg(imagecreatefromjpeg($request->file("upload")),"img/".$ckeditor,50);
             }else{
-                imagepng(imagecreatefrompng($request->file("upload")),"img/ckeditor/".$ckeditor,5);
+                imagepng(imagecreatefrompng($request->file("upload")),"img/".$ckeditor,5);
             }
 
             $rsp = [
                 "uploaded" => true,
-                "url" => url("/img/ckeditor") . "/" . $ckeditor
+                "url" => url("/img") . "/" . $ckeditor
             ];
 
             return $rsp;

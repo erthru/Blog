@@ -23,7 +23,7 @@ class Controller extends BaseController
 
     public function checkAuth($request)
     {
-        if(!$request->session()->has("id")){
+        if(empty($request->session()->get("id"))){
             return redirect("/dashboard/login");
         }
     }

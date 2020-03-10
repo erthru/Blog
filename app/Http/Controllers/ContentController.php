@@ -79,7 +79,7 @@ class ContentController extends Controller
 
         $writer = Writer::find($request->session()->get("id"));
         $content = Content::with("writer")->orderBy("id", "DESC")->paginate(15);
-
+        
         $data = [
             "writer" => $writer,
             "content" => $content
