@@ -14,7 +14,7 @@ use Illuminate\Support\Facades\Route;
 */
 
 Route::get('/', "ContentController@index");
-Route::get('/{name}', "ContentController@detailView");
+Route::get('/{url}', "ContentController@detailView");
 Route::get("/dashboard/content", "ContentController@dashboardContentView");
 Route::get("/dashboard/content/add", "ContentController@dashboardContentAddView");
 Route::get("/dashboard/login", "CredentialController@index");

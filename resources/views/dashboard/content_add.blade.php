@@ -5,7 +5,7 @@
         <div class="card">
             <div class="card-body">
                 <h4><strong>TAMBAH</strong></h4>
-                
+
                 <form class="mt-3" action="/dashboard/content/add" method="post" enctype="multipart/form-data">
                     @csrf
 
@@ -13,19 +13,24 @@
                         <div class="col-12 col-md-9">
                             <div class="form-group">
                                 <label>Judul</label>
-                                <input type="text" class="form-control" placeholder="New Adventure" name="title" required />
+                                <input type="text" class="form-control" placeholder="New Adventure" name="title" value="{{ old('title') }}"/>
                             </div>
                             
                             <div class="form-group">
                                 <label>Isi</label>
-                                <textarea type="text" class="form-control" placeholder="Isi konten" name="body" required ></textarea>
+                                <textarea type="text" class="form-control" placeholder="Isi konten" name="body" id="body">{{ old('body') }}</textarea>
                             </div>
                         </div>
 
                         <div class="col-12 col-md-3">
                             <div class="form-group">
                                 <label>Thumbnail</label>
-                                <input type="file" name="thumbnail"/>
+                                <input type="file" name="thumbnail">
+                            </div>
+
+                            <div class="form-group">
+                                <label>Tags (Pisahkan dengan koma)</label>
+                                <input type="text" class="form-control" placeholder="travel,food,coding" name="tags" value="{{ old('tags') }}"/>
                             </div>
                         </div>
                     </div>
@@ -41,6 +46,16 @@
                         </div>
                     </div>
                 </form>
+
+                @if(count($errors) > 0)
+                    <div class="alert alert-danger">
+                        <ul>
+                            @foreach($errors->all() as $error)
+                                <li>{{ $error }}</li>
+                            @endforeach
+                        </ul>
+                    </div>
+                @endif
             </div>
         </div>
     </div>
@@ -65,4 +80,12 @@
             </div>
         </div>
     </div>
+
+    <script>
+        ClassicEditor.create(document.querySelector('#body'), {
+            ckfinder: {
+                uploadUrl: "http://localhost:8000/api/open/external/ckeditor_upload_image"
+            }
+        });
+    </script>
 @endsection

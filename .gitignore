@@ -5,8 +5,10 @@
 /vendor
 /public/avatar/*
 /public/img/*
+/public/img/ckeditor/*
 !/public/avatar/default_avatar.PNG
 !/public/img/default_thumbnail.jpg
+!/public/img/ckeditor
 .env
 .env.backup
 .phpunit.result.cache

@@ -3,6 +3,7 @@
 namespace App\Http\Controllers;
 
 use Illuminate\Http\Request;
+use Illuminate\Support\Facades\DB;
 use App\Content;
 use App\Quote;
 use App\Tag;
@@ -46,10 +47,9 @@ class ContentController extends Controller
         return view("index.list", $data);
     }
 
-    public function detailView($name)
+    public function detailView($url)
     {
-        $fixName = preg_replace('/[\-]/', ' ', $name);
-        $content = Content::with("writer")->with("tag")->where("title", $fixName)->first();
+        $content = Content::with("writer")->with("tag")->where("for_url", $url)->first();
         
         if($content){
             $tagFromContent = "";
@@ -96,6 +96,11 @@ class ContentController extends Controller
 
     public function addAction(Request $request)
     {
+        $this->validate($request, [
+            "title" => "required|regex:/^[A-Za-z0-9.?!, ]+$/",
+            "body" => "required"
+        ]);
+
         $this->checkAuth($request);
 
         $writer = Writer::find($request->session()->get("id"));
@@ -112,15 +117,53 @@ class ContentController extends Controller
             }
         }
 
-        $body = [
+        $forUrl = strtolower(preg_replace('/[^A-Za-z0-9\-]/', "", preg_replace('/\s+/', '-', $request->input("title"))));
+        
+        if(substr($forUrl, -1) == "-"){
+            $forUrl = substr($forUrl, 0, -1);
+        }
+
+        $content = Content::where("for_url", $forUrl)->get()->count();
+
+        if($content > 0){
+            $forUrl .= uniqid();
+        }
+
+        DB::beginTransaction();
+
+        $contentBody = [
             "title" => $request->input("title"),
             "body" => $request->input("body"),
             "thumb" => $thumbnail,
             "is_page" => $request->input("isPage") ?: 0,
+            "for_url" => $forUrl,
             "writer_id" => $writer->id
         ];
+        
+        $content = Content::create($contentBody);
 
-        Content::create($body);
+        $tags = preg_replace('/\s+/', '', $request->input("tags"));
+
+        if($tags != ""){
+            if(substr($tags, -1) == ","){
+                $tags = substr($tags, 0, -1);
+            }
+    
+            $tagsArr = explode(",", $tags);
+            
+            $tagBody = [];
+    
+            foreach($tagsArr as $tag){
+                array_push($tagBody, [
+                    "name" => $tag,
+                    "content_id" => $content->id
+                ]);
+            }
+    
+            Tag::insert($tagBody);
+        }
+
+        DB::commit();
 
         return redirect("/dashboard/content")->with("successMsg", "Data ditambahkan.");
     }

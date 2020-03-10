@@ -18,7 +18,7 @@
 
                             <p class="mt-3 text-body max-lines-3">{{ $item["content"]["body"] }}</p>
                         
-                            <a href="/{{ preg_replace('/\s+/', '-', strtolower($item['content']['title'])) }}" class="btn btn-danger w-100">LIHAT</a>
+                            <a href="/{{ $item['content']['for_url'] }}" class="btn btn-danger w-100">LIHAT</a>
                         </div>
                     </div>
                 </div>

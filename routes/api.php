@@ -14,3 +14,4 @@ use Illuminate\Support\Facades\Route;
 |
 */
 
+Route::post("/open/external/ckeditor_upload_image", "ExternalController@ckEditorUploadImage");
