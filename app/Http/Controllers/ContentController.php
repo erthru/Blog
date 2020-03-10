@@ -13,7 +13,7 @@ class ContentController extends Controller
 {
     public function index()
     {
-        $contents = Content::with("writer")->orderBy("id", "DESC")->paginate(5);
+        $contents = Content::with("writer")->orderBy("id", "DESC")->where("is_page", "0")->paginate(5);
         $quotes = Quote::with("writer")->orderBy("id", "DESC")->paginate(4);
 
         $mix = [];
@@ -31,7 +31,7 @@ class ContentController extends Controller
         foreach($quotes as $quote){
             array_push($mix, [
                 "type" => "quote",
-                "content" => "null",
+                "content" => null,
                 "quote" => $quote,
                 "created_at" => strtok($quote->created_at, "T"),
                 "updated_at" => strtok($quote->updated_at, "T"),
@@ -75,14 +75,35 @@ class ContentController extends Controller
 
     public function dashboardContentView(Request $request)
     {
-        $this->checkAuth($request);
+        if(!$request->session()->has("id")){
+            return redirect("/dashboard/login");
+        }
 
         $writer = Writer::find($request->session()->get("id"));
-        $content = Content::with("writer")->orderBy("id", "DESC")->paginate(15);
+        $contents = null;
+
+        if(!empty($request->query("is_page"))){
+            if($request->query("is_page") == "1"){
+                $contents = Content::with("writer")->where("is_page", "1")->orderBy("id", "DESC")->paginate(15);
+            }else{
+                $contents = Content::with("writer")->where("is_page", "0")->orderBy("id", "DESC")->paginate(15);
+            }
+        }else{
+            $contents = Content::with("writer")->orderBy("id", "DESC")->paginate(15);
+        }
+
+        if(!empty($request->query("query"))){
+            $contents = Content::with("writer")
+            ->where("title", "LIKE", "%" . $request->query("query") . "%")
+            ->where("body", "LIKE", "%" . $request->query("query") . "%")
+            ->orderBy("id", "DESC")
+            ->take(15)
+            ->get();
+        }
         
         $data = [
             "writer" => $writer,
-            "content" => $content
+            "contents" => $contents
         ];
 
         return view("dashboard.content", $data);
@@ -90,18 +111,28 @@ class ContentController extends Controller
 
     public function dashboardContentAddView(Request $request)
     {
-        $this->checkAuth($request);
-        return view("dashboard.content_add");
+        if(!$request->session()->has("id")){
+            return redirect("/dashboard/login");
+        }
+
+        $writer = Writer::find($request->session()->get("id"));
+        $data = [
+            "writer" => $writer
+        ];
+        
+        return view("dashboard.content_add", $data);
     }
 
     public function addAction(Request $request)
     {
+        if(!$request->session()->has("id")){
+            return redirect("/dashboard/login");
+        }
+        
         $this->validate($request, [
-            "title" => "required|regex:/^[A-Za-z0-9.?!, ]+$/",
+            "title" => "required",
             "body" => "required"
         ]);
-
-        $this->checkAuth($request);
 
         $writer = Writer::find($request->session()->get("id"));
 

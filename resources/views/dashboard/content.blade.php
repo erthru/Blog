@@ -16,12 +16,24 @@
 
                     <div class="col-12 col-md-3">
                         <form class="form-inline my-2 my-lg-0" action="/dashboard/content" method="get">
-                            <input type="search" class="form-control" style="width: 100%" name="query" placeholder="cari konten" value="{{ app('request')->query('query') }}" required/>
+                            <input type="search" class="form-control" style="width: 100%" name="query" placeholder="cari konten" value="{{ app('request')->query('query') }}"/>
                         </form>
                     </div>
                 </div>
 
-                @if(count($content) == 0)
+                <div class="mt-3 dashboard-content-list">
+                    @foreach($contents as $content)
+                        <h5><a href="/dashboard/content/show/{{ $content->id }}"><strong>{{ $content->title }}</strong></a></h5>
+                        <p class="max-lines-3">{{ strip_tags($content->body) }}</p>
+
+                        <div class="right-block">
+                            <a href="#"><i class="fas fa-trash text-danger mr-2"></i><span class="text-danger"><strong>HAPUS</strong></span></a>
+                        </div>
+                        <hr />
+                    @endforeach
+                </div>
+
+                @if(count($contents) == 0)
                     <span class="center-block mt-4">Belum ada Data.</span>
                 @endif
             </div>

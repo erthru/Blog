@@ -25,7 +25,7 @@
 
             <div class="card-body">
                 <div class="content-entry">
-                    {{ $content->body }}
+                    {!! html_entity_decode($content->body) !!}
                 </div>
 
                 @if(count($content->tag) != 0)

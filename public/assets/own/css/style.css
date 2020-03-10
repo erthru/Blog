@@ -79,6 +79,11 @@ button{
     padding-left: 25px;
 }
 
+.content-entry img{
+    width: 100%;
+    height: auto;
+}
+
 .content-tags{
     padding-top: 20px;
     padding-right: 25px;
@@ -266,6 +271,23 @@ button{
     min-height: 100vh;
 }
 
+.dashboard-content-section a{
+    text-decoration: none;
+}
+
+.dashboard-content-list p{
+    margin-top: -5px;
+}
+
+.dashboard-content-list hr{
+    margin-top: 8px;
+}
+
+.dashboard-content-list a{
+    text-decoration: none;
+    color: black;
+}
+
 .dashboard-footer-section{
     background-color: white;
     padding-top: 15px;
@@ -297,6 +319,11 @@ button{
 
 .center-block{
     margin-right: auto;
+    margin-left: auto;
+    display: table;
+}
+
+.right-block{
     margin-left: auto;
     display: table;
 }

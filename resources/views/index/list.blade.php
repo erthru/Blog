@@ -16,7 +16,7 @@
                             <h5 class="card-title mt-2">{{ $item["content"]["title"] }}</h5>
                             <h6 class="card-subtitle text-muted" style="margin-top: -8px">{{ dateFormat($item["content"]["created_at"]) }}</h6>
 
-                            <p class="mt-3 text-body max-lines-3">{{ $item["content"]["body"] }}</p>
+                            <p class="mt-3 text-body max-lines-3">{{ strip_tags($item["content"]["body"]) }}</p>
                         
                             <a href="/{{ $item['content']['for_url'] }}" class="btn btn-danger w-100">LIHAT</a>
                         </div>
