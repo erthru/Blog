@@ -13,8 +13,8 @@ class ContentController extends Controller
 {
     public function homeView()
     {
-        $contents = Content::with("writer")->orderBy("id", "DESC")->where("is_page", "0")->paginate(5);
-        $quotes = Quote::with("writer")->orderBy("id", "DESC")->paginate(4);
+        $contents = Content::with("writer")->orderBy("id", "DESC")->where("is_page", "0")->paginate(6);
+        $quotes = Quote::with("writer")->orderBy("id", "DESC")->paginate(3);
 
         $mix = [];
 
