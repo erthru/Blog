@@ -13,12 +13,16 @@ use Illuminate\Support\Facades\Route;
 |
 */
 
+// view
 Route::get('/', "ContentController@homeView");
 Route::get('/{url}', "ContentController@detailView");
 Route::get("/dashboard/content", "ContentController@dashboardContentView");
 Route::get("/dashboard/content/add", "ContentController@dashboardContentAddView");
 Route::get("/dashboard/login", "CredentialController@loginView");
-Route::get("/dashboard/logout", "CredentialController@logoutAction");
 
+// action
+Route::get("/dashboard/content/delete/{id}", "ContentController@deleteAction");
+Route::get("/dashboard/logout", "CredentialController@logoutAction");
 Route::post("/dashboard/login", "CredentialController@loginAction");
 Route::post("/dashboard/content/add", "ContentController@addAction");
+

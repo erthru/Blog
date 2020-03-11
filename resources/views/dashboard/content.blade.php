@@ -27,7 +27,7 @@
                         <p class="max-lines-3">{{ strip_tags($content->body) }}</p>
 
                         <div class="right-block">
-                            <a href="#"><i class="fas fa-trash text-danger mr-2"></i><span class="text-danger"><strong>HAPUS</strong></span></a>
+                            <a href="#modalDelete" data-toggle="modal" data-content="{{ $content }}"><i class="fas fa-trash text-danger mr-2"></i><span class="text-danger"><strong>HAPUS</strong></span></a>
                         </div>
                         <hr />
                     @endforeach
@@ -44,28 +44,58 @@
         </div>
     </div>
 
+    <div class="modal fade" role="dialog" id="modalDelete">
+        <div class="modal-dialog" role="document">
+            <div class="modal-content">
+                <div class="modal-header">
+                    <h5 class="modal-title">Konfirmasi</h5>
+                    <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                    <span aria-hidden="true">&times;</span>
+                    </button>
+                </div>
+                
+                <div class="modal-body">
+                    <p id="pModalDelete"></p>
+                </div>
+                
+                <div class="modal-footer">
+                    <button type="button" class="btn btn-secondary" data-dismiss="modal">Batal</button>
+                    <a id="aModalDelete" href="/" class="btn btn-danger">Hapus</a>
+                </div>
+            </div>
+        </div>
+    </div>
+
     <script>
         var prepare = 0;
         
-        $(".pagination").twbsPagination({
-            totalPages: "{!! $contents->lastPage() !!}",
-            visiblePages: 5,
-            first: "Awal",
-            last: "Terakhir",
-            prev: "<<",
-            next: ">>",
-            startPage: isNaN(parseInt("{!! app('request')->query('page') !!}")) ? 1 : parseInt("{!! app('request')->query('page') !!}"),
-            onPageClick: (evt, page) => {
-                prepare += 1;
+        if("{!! method_exists($contents, 'total') ? $contents->total() : 0 !!}" != 0){
+            $(".pagination").twbsPagination({
+                totalPages: "{!! method_exists($contents, 'lastPage') ? $contents->lastPage() : 0 !!}",
+                visiblePages: 5,
+                first: "Awal",
+                last: "Terakhir",
+                prev: "<<",
+                next: ">>",
+                startPage: isNaN(parseInt("{!! app('request')->query('page') !!}")) ? 1 : parseInt("{!! app('request')->query('page') !!}"),
+                onPageClick: (evt, page) => {
+                    prepare += 1;
 
-                if(prepare == 2){
-                    if(location.href.indexOf("is_page=1") > -1){
-                        location.href = "?is_page=1&page=" + page
-                    }else{
-                        location.href = "?page=" + page
-                    }                    
+                    if(prepare == 2){
+                        if(location.href.indexOf("is_page=1") > -1){
+                            location.href = "?is_page=1&page=" + page
+                        }else{
+                            location.href = "?page=" + page
+                        }                    
+                    }
                 }
-            }
+            });
+        }
+
+        $("#modalDelete").on("show.bs.modal", (e) => {
+            const content = $(e.relatedTarget).data("content");
+            $("#aModalDelete").attr("href", "/dashboard/content/delete/"+content.id);
+            $("#pModalDelete").append("Hapus " + content.title + " ?");
         });
     </script>
 @endsection

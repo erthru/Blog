@@ -95,7 +95,7 @@ class ContentController extends Controller
         if(!empty($request->query("query"))){
             $contents = Content::with("writer")
             ->where("title", "LIKE", "%" . $request->query("query") . "%")
-            ->where("body", "LIKE", "%" . $request->query("query") . "%")
+            ->orWhere("body", "LIKE", "%" . $request->query("query") . "%")
             ->orderBy("id", "DESC")
             ->take(15)
             ->get();
@@ -197,5 +197,17 @@ class ContentController extends Controller
         DB::commit();
 
         return redirect("/dashboard/content")->with("successMsg", "Data ditambahkan.");
+    }
+
+    public function deleteAction(Request $request, $id)
+    {
+        if(!$request->session()->has("id")){
+            return redirect("/dashboard/login");
+        }
+
+        $content = Content::find($id);
+        $content->delete();
+
+        return redirect("/dashboard/content")->with("successMsg", "Data dihapus");
     }
 }
