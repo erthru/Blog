@@ -20,13 +20,18 @@
                         </form>
                     </div>
                 </div>
+            
+                <input type="checkbox" id="checkPages" value="1" class="mt-2"/>
+                <label>Tampilkan laman saja</label>
 
                 <div class="mt-3 dashboard-content-list">
                     @foreach($contents as $content)
-                        <h5><a href="/dashboard/content/show/{{ $content->id }}"><strong>{{ $content->title }}</strong></a></h5>
+                        <h5><strong>{{ $content->title }}</strong></h5>
                         <p class="max-lines-3">{{ strip_tags($content->body) }}</p>
 
                         <div class="right-block">
+                            <a href="/{{ $content->for_url }}" target="blank"><i class="fas fa-globe text-success mr-2"></i><span class="text-success mr-4"><strong>LIHAT</strong></span></a>
+                            <a href="/dashboard/content/update/{{ $content->id }}"><i class="fas fa-pencil-alt text-warning mr-2"></i><span class="text-warning mr-4"><strong>PERBARUI</strong></span></a>
                             <a href="#modalDelete" data-toggle="modal" data-content="{{ $content }}"><i class="fas fa-trash text-danger mr-2"></i><span class="text-danger"><strong>HAPUS</strong></span></a>
                         </div>
                         <hr />
@@ -68,6 +73,18 @@
 
     <script>
         var prepare = 0;
+
+        if(location.href.indexOf("is_page=1") > -1){
+            $("#checkPages").attr("checked", "checked");
+        }
+
+        $("#checkPages").change(function (){
+            if(this.checked){
+                location.href="?is_page=1";
+            }else{
+                location.href="/dashboard/content";
+            }
+        });
         
         if("{!! method_exists($contents, 'total') ? $contents->total() : 0 !!}" != 0){
             $(".pagination").twbsPagination({
@@ -83,9 +100,9 @@
 
                     if(prepare == 2){
                         if(location.href.indexOf("is_page=1") > -1){
-                            location.href = "?is_page=1&page=" + page
+                            location.href = "?is_page=1&page=" + page;
                         }else{
-                            location.href = "?page=" + page
+                            location.href = "?page=" + page;
                         }                    
                     }
                 }

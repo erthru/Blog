@@ -123,6 +123,22 @@ class ContentController extends Controller
         return view("dashboard.content_add", $data);
     }
 
+    public function dashboardContentUpdateView(Request $request, $id)
+    {
+        if(!$request->session()->has("id")){
+            return redirect("/dashboard/login");
+        }
+
+        $content = Content::with("writer")->with("tag")->find($id);
+
+        $data = [
+            "content" => $content,
+            "writer" => $content->writer
+        ];
+
+        return view("dashboard.content_update", $data);
+    }
+
     public function addAction(Request $request)
     {
         if(!$request->session()->has("id")){
@@ -136,7 +152,7 @@ class ContentController extends Controller
 
         $writer = Writer::find($request->session()->get("id"));
 
-        $thumbnail = "default_thumbnail.jpg";
+        $thumbnail = "";
 
         if($request->hasFile("thumbnail")){
             $thumbnail = uniqid(). ".jpg";
@@ -191,12 +207,77 @@ class ContentController extends Controller
                 ]);
             }
     
-            Tag::insert($tagBody);
+            foreach($tagBody as $tag){
+                Tag::updateOrCreate($tag);
+            }
         }
 
         DB::commit();
 
         return redirect("/dashboard/content")->with("successMsg", "Data ditambahkan.");
+    }
+
+    public function updateAction(Request $request, $id)
+    {
+        if(!$request->session()->has("id")){
+            return redirect("/dashboard/login");
+        }
+
+        $this->validate($request, [
+            "title" => "required",
+            "body" => "required"
+        ]);
+
+        $content = Content::find($id);
+
+        $thumbnail = $content->thumb;
+
+        if($request->hasFile("thumbnail")){
+            $thumbnail = uniqid(). ".jpg";
+
+            if($request->file("thumbnail")->getClientOriginalExtension() == "jpg" || $request->file("thumbnail")->getClientOriginalExtension() == "jpeg"){
+                imagejpeg(imagecreatefromjpeg($request->file("thumbnail")),"img/".$thumbnail,50);
+            }else{
+                imagepng(imagecreatefrompng($request->file("thumbnail")),"img/".$thumbnail,5);
+            }
+        }
+
+        DB::beginTransaction();
+
+        $contentBody = [
+            "title" => $request->input("title"),
+            "body" => $request->input("body"),
+            "thumb" => $thumbnail
+        ];
+        
+        $content->update($contentBody);
+
+        $tags = preg_replace('/\s+/', '', $request->input("tags"));
+
+        if($tags != ""){
+            if(substr($tags, -1) == ","){
+                $tags = substr($tags, 0, -1);
+            }
+    
+            $tagsArr = explode(",", $tags);
+            
+            $tagBody = [];
+    
+            foreach($tagsArr as $tag){
+                array_push($tagBody, [
+                    "name" => $tag,
+                    "content_id" => $content->id
+                ]);
+            }
+    
+            foreach($tagBody as $tag){
+                Tag::updateOrCreate($tag);
+            }
+        }
+
+        DB::commit();
+
+        return redirect("/dashboard/content")->with("successMsg", "Data diperbarui.");
     }
 
     public function deleteAction(Request $request, $id)

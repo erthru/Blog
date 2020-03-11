@@ -21,7 +21,9 @@
                 </div>
             </div>
 
-            <img src="{{ url('/img') . '/' . $content->thumb }}" class="card-img-top mt-3"/>
+            @if($content->thumb != "")
+                <img src="{{ url('/img') . '/' . $content->thumb }}" class="card-img-top mt-3"/>
+            @endif
 
             <div class="card-body">
                 <div class="content-entry">

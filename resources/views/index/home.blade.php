@@ -7,7 +7,9 @@
             @if($item["type"] == "content")
                 <div class="grid-item">
                     <div class="card">
-                        <img src="{{ url('/img') . '/' . $item['content']['thumb'] }}" class="card-img-top"/>
+                        @if($item['content']['thumb'] != "")
+                            <img src="{{ url('/img') . '/' . $item['content']['thumb'] }}" class="card-img-top"/>
+                        @endif
 
                         <div class="card-body">
                             <i class="fas fa-grip-lines text-danger fa-sm"></i>

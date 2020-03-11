@@ -1,44 +1,49 @@
 @extends("dashboard.app")
-@section("title","Konten Tambah")
+@section("title","Konten Perbarui")
 @section("main")
     <div class="dashboard-content-section">
         <div class="card">
             <div class="card-body">
-                <h4><strong>TAMBAH</strong></h4>
-
-                <form class="mt-3" action="/dashboard/content/add" method="post" enctype="multipart/form-data">
+                <h4><strong>PERBARUI</strong></h4>
+                
+                <form class="mt-3" action="/dashboard/content/update/{{ $content->id }}" method="post" enctype="multipart/form-data">
                     @csrf
 
                     <div class="row">
                         <div class="col-12 col-md-9">
                             <div class="form-group">
                                 <label>Judul</label>
-                                <input type="text" class="form-control" placeholder="New Adventure" name="title" value="{{ old('title') }}"/>
+                                <input type="text" class="form-control" placeholder="New Adventure" name="title" value="{{ $content->title }}"/>
                             </div>
                             
                             <div class="form-group">
                                 <label>Isi</label>
-                                <textarea type="text" class="form-control" placeholder="Isi konten" name="body" id="body">{{ old('body') }}</textarea>
+                                <textarea type="text" class="form-control" placeholder="Isi konten" name="body" id="body">{{ $content->body }}</textarea>
                             </div>
 
-                            <div class="form-group form-check">
-                                <input type="checkbox" class="form-check-input" name="isPage" value="1"/>
-                                <label class="form-check-label">Set sebagai laman. <a href="#modalLamanInfo" data-toggle="modal">Info?</a></label>
-                            </div>
-
-                            <button type="submit" class="btn btn-success">TAMBAH</button>
+                            <button type="submit" class="btn btn-success">SIMPAN</button>
                         </div>
 
                         <div class="col-12 col-md-3">
                             <div class="form-group">
-                                <img src="#" width="100%" height="auto" class="pb-4" id="imgPreview"/>
+                                <img src="{{ url('img') . '/' . $content->thumb }}" width="100%" height="auto" class="pb-4" id="imgPreview"/>
+
                                 <label>Thumbnail</label>
                                 <input type="file" name="thumbnail" id="imgFile">
                             </div>
 
                             <div class="form-group">
                                 <label>Tags (Pisahkan dengan koma)</label>
-                                <input type="text" class="form-control" placeholder="travel,food,coding" name="tags" value="{{ old('tags') }}"/>
+                                @php
+                                    $tags = "";
+
+                                    foreach($content->tag as $tag){
+                                        $tags .= $tag->name . ",";
+                                    };
+
+                                    $tags = substr($tags, 0, -1);
+                                @endphp
+                                <input type="text" class="form-control" placeholder="travel,food,coding" name="tags" value="{{ $tags }}"/>
                             </div>
                         </div>
                     </div>
@@ -84,8 +89,10 @@
                 uploadUrl: "/api/open/external/ckeditor_upload_image"
             }
         });
-
-        $("#imgPreview").hide();
+        
+        if("{!! $content->thumb !!}" == ""){
+            $("#imgPreview").hide();
+        }
         
         $("#imgFile").change(function() {
             if (this.files && this.files[0]) {
