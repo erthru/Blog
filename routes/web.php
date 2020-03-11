@@ -13,11 +13,11 @@ use Illuminate\Support\Facades\Route;
 |
 */
 
-Route::get('/', "ContentController@index");
+Route::get('/', "ContentController@homeView");
 Route::get('/{url}', "ContentController@detailView");
 Route::get("/dashboard/content", "ContentController@dashboardContentView");
 Route::get("/dashboard/content/add", "ContentController@dashboardContentAddView");
-Route::get("/dashboard/login", "CredentialController@index");
+Route::get("/dashboard/login", "CredentialController@loginView");
 Route::get("/dashboard/logout", "CredentialController@logoutAction");
 
 Route::post("/dashboard/login", "CredentialController@loginAction");

@@ -11,7 +11,7 @@ use App\Writer;
 
 class ContentController extends Controller
 {
-    public function index()
+    public function homeView()
     {
         $contents = Content::with("writer")->orderBy("id", "DESC")->where("is_page", "0")->paginate(5);
         $quotes = Quote::with("writer")->orderBy("id", "DESC")->paginate(4);
@@ -44,7 +44,7 @@ class ContentController extends Controller
             "mix" => (object) $mix
         ];
 
-        return view("index.list", $data);
+        return view("index.home", $data);
     }
 
     public function detailView($url)
@@ -84,12 +84,12 @@ class ContentController extends Controller
 
         if(!empty($request->query("is_page"))){
             if($request->query("is_page") == "1"){
-                $contents = Content::with("writer")->where("is_page", "1")->orderBy("id", "DESC")->paginate(15);
+                $contents = Content::with("writer")->where("is_page", "1")->orderBy("id", "DESC")->paginate(10);
             }else{
-                $contents = Content::with("writer")->where("is_page", "0")->orderBy("id", "DESC")->paginate(15);
+                $contents = Content::with("writer")->where("is_page", "0")->orderBy("id", "DESC")->paginate(10);
             }
         }else{
-            $contents = Content::with("writer")->orderBy("id", "DESC")->paginate(15);
+            $contents = Content::with("writer")->orderBy("id", "DESC")->paginate(10);
         }
 
         if(!empty($request->query("query"))){

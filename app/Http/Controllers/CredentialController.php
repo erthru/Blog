@@ -8,7 +8,7 @@ use App\Credential;
 
 class CredentialController extends Controller
 {
-    public function index(Request $request)
+    public function loginView(Request $request)
     {
         if($request->session()->has("id")){
             return redirect("/dashboard/content");

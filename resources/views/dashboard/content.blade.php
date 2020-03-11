@@ -33,10 +33,39 @@
                     @endforeach
                 </div>
 
+                <div class="dashboard-content-pagination">
+                    <ul class="pagination"></ul>
+                </div>
+
                 @if(count($contents) == 0)
                     <span class="center-block mt-4">Belum ada Data.</span>
                 @endif
             </div>
         </div>
     </div>
+
+    <script>
+        var prepare = 0;
+        
+        $(".pagination").twbsPagination({
+            totalPages: "{!! $contents->lastPage() !!}",
+            visiblePages: 5,
+            first: "Awal",
+            last: "Terakhir",
+            prev: "<<",
+            next: ">>",
+            startPage: isNaN(parseInt("{!! app('request')->query('page') !!}")) ? 1 : parseInt("{!! app('request')->query('page') !!}"),
+            onPageClick: (evt, page) => {
+                prepare += 1;
+
+                if(prepare == 2){
+                    if(location.href.indexOf("is_page=1") > -1){
+                        location.href = "?is_page=1&page=" + page
+                    }else{
+                        location.href = "?page=" + page
+                    }                    
+                }
+            }
+        });
+    </script>
 @endsection

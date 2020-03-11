@@ -12,4 +12,5 @@
 <script src="{{ url('/assets/bootstrap/js/bootstrap.js') }}"></script>
 <script src="{{ url('/assets/font-awesome/js/fa.js') }}"></script>
 <script src="{{ url('/assets/masonry/js/masonry.pkgd.js') }}"></script>
-<script src="{{ url('/assets/ckeditor/ckeditor.js') }}"></script>
+<script src="{{ url('/assets/ckeditor/js/ckeditor.js') }}"></script>
+<script src="{{ url('/assets/twbs-pagination/js/jquery.twbsPagination.js') }}"></script>
