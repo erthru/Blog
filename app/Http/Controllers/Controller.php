@@ -20,4 +20,11 @@ class Controller extends BaseController
             return (strtoupper($dir) == 'ASC' ? ($t1 < $t2) : ($t1 > $t2)) ? -1 : 1;
         };
     }
+
+    function validationErrorMsg()
+    {
+        return [
+            "required" => ":attribute harus diisi",
+        ];
+    }
 }

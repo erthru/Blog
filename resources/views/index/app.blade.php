@@ -54,7 +54,7 @@
         <br />
 
         <main>
-            <div class="content-section">
+            <div class="main-section">
                 @yield("body")
             </div>
         </main>

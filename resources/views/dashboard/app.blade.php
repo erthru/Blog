@@ -32,7 +32,7 @@
 
                         <hr />
 
-                        <a href="#">
+                        <a href="/dashboard/quote">
                             <div class="row">
                                 <div class="col-2 align-self-right">
                                     <i class="fas fa-quote-left" style="font-size: 24px"></i>
@@ -89,7 +89,9 @@
                </div>
 
                <div class="col-12 col-md-10">
-                    @yield("main")
+                    <div class="dashboard-main-section">
+                        @yield("main")
+                    </div>
                </div>
            </div>   
         </main>

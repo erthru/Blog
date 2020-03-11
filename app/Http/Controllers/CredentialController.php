@@ -19,6 +19,11 @@ class CredentialController extends Controller
 
     public function loginAction(Request $request)
     {
+        $this->validate($request, [
+            "email" => "required",
+            "password" => "required"
+        ], $this->validationErrorMsg());
+
         $body = [
             "email" => $request->input("email"),
             "password" => $request->input("password")

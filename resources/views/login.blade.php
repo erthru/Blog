@@ -25,16 +25,26 @@
 
                                     <div class="form-group">
                                         <label>Email</label>
-                                        <input type="email" class="form-control" placeholder="example@email.com" name="email" required />
+                                        <input type="email" class="form-control" placeholder="example@email.com" name="email" />
                                     </div>
 
                                     <div class="form-group">
                                         <label>Password</label>
-                                        <input type="password" class="form-control" placeholder="Your Password" name="password" required />
+                                        <input type="password" class="form-control" placeholder="Your Password" name="password" />
                                     </div>
 
                                     <button type="submit" class="btn btn-success w-100 mt-2">LOGIN</button>
                                 </form>
+
+                                @if(count($errors) > 0)
+                                    <div class="alert alert-danger">
+                                        <ul>
+                                            @foreach($errors->all() as $error)
+                                                <li>{{ $error }}</li>
+                                            @endforeach
+                                        </ul>
+                                    </div>
+                                @endif
                             </div>
                         </div>
                     </div>

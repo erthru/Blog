@@ -148,7 +148,7 @@ class ContentController extends Controller
         $this->validate($request, [
             "title" => "required",
             "body" => "required"
-        ]);
+        ],$this->validationErrorMsg());
 
         $writer = Writer::find($request->session()->get("id"));
 
@@ -226,7 +226,7 @@ class ContentController extends Controller
         $this->validate($request, [
             "title" => "required",
             "body" => "required"
-        ]);
+        ],$this->validationErrorMsg());
 
         $content = Content::find($id);
 
