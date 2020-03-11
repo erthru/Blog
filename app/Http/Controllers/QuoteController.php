@@ -48,6 +48,22 @@ class QuoteController extends Controller
         return view("dashboard.quote_add", $data);
     }
 
+    public function dashboardQuoteUpdateView(Request $request, $id)
+    {
+        if(!$request->session()->has("id")){
+            return redirect("/dashboard/login");
+        }
+
+        $quote = Quote::with("writer")->find($id);
+        
+        $data = [
+            "writer" => $quote->writer,
+            "quote" => $quote
+        ];
+
+        return view("dashboard.quote_update", $data);
+    }
+
     public function addAction(Request $request)
     {
         if(!$request->session()->has("id")){
@@ -68,6 +84,28 @@ class QuoteController extends Controller
         Quote::create($body);
 
         return redirect("/dashboard/quote")->with("successMsg", "Quote ditambahkan");
+    }
+
+    public function updateAction(Request $request, $id)
+    {
+        if(!$request->session()->has("id")){
+            return redirect("/dashboard/login");
+        }
+
+        $this->validate($request, [
+            "quote" => "required",
+        ],$this->validationErrorMsg());
+
+        $quote = Quote::with("writer")->find($id);
+
+        $body = [
+            "quote" => $request->input("quote"),
+            "writer_id" => $quote->writer->id
+        ];
+
+        $quote->update($body);
+
+        return redirect("/dashboard/quote")->with("successMsg", "Quote diperbarui");
     }
 
     public function deleteAction(Request $request, $id)
