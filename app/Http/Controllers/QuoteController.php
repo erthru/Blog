@@ -8,7 +8,7 @@ use App\Quote;
 
 class QuoteController extends Controller
 {
-    public function DashboardQuoteView(Request $request)
+    public function dashboardQuoteView(Request $request)
     {
         if(!$request->session()->has("id")){
             return redirect("/dashboard/login");
@@ -33,7 +33,7 @@ class QuoteController extends Controller
         return view("dashboard.quote", $data);
     }
 
-    public function DashboardQuoteAddView(Request $request)
+    public function dashboardQuoteAddView(Request $request)
     {
         if(!$request->session()->has("id")){
             return redirect("/dashboard/login");
@@ -48,7 +48,7 @@ class QuoteController extends Controller
         return view("dashboard.quote_add", $data);
     }
 
-    public function AddAction(Request $request)
+    public function addAction(Request $request)
     {
         if(!$request->session()->has("id")){
             return redirect("/dashboard/login");
@@ -68,5 +68,17 @@ class QuoteController extends Controller
         Quote::create($body);
 
         return redirect("/dashboard/quote")->with("successMsg", "Quote ditambahkan");
+    }
+
+    public function deleteAction(Request $request, $id)
+    {
+        if(!$request->session()->has("id")){
+            return redirect("/dashboard/login");
+        }
+
+        $quote = Quote::find($id);
+        $quote->delete();
+
+        return redirect("/dashboard/quote")->with("successMsg", "Quote dihapus");
     }
 }
