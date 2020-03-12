@@ -60,14 +60,14 @@
 
                         <hr />
 
-                        <a href="#">
+                        <a href="/dashboard/image">
                             <div class="row">
                                 <div class="col-2 align-self-right">
                                     <i class="fas fa-image" style="font-size: 24px"></i>
                                 </div>
 
                                 <div class="col-10">
-                                    <strong>Images</strong>
+                                    <strong>Gambar</strong>
                                 </div>
                             </div>
                         </a>

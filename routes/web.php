@@ -24,7 +24,8 @@ Route::get("/dashboard/quote", "QuoteController@dashboardQuoteView");
 Route::get("/dashboard/quote/add", "QuoteController@dashboardQuoteAddView");
 Route::get("/dashboard/quote/update/{id}", "QuoteController@dashboardQuoteUpdateView");
 Route::get("/dashboard/quote/delete/{id}", "QuoteController@deleteAction");
-Route::get("/dashboard/tag", "TagController@DashboardTagView");
+Route::get("/dashboard/tag", "TagController@dashboardTagView");
+Route::get("/dashboard/image", "ExternalController@dashboardImageView");
 
 // action
 Route::get("/dashboard/logout", "CredentialController@logoutAction");

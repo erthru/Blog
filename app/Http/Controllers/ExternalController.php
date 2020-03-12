@@ -3,6 +3,8 @@
 namespace App\Http\Controllers;
 
 use Illuminate\Http\Request;
+use App\Writer;
+use File;
 
 class ExternalController extends Controller
 {
@@ -26,5 +28,35 @@ class ExternalController extends Controller
         }
 
         return "what ?";
+    }
+
+    public function dashboardImageView(Request $request)
+    {
+        if(!$request->session()->has("id")){
+            return redirect("/dashboard/login");
+        }
+
+        if(!empty($request->query("delete")) && File::exists(public_path("img/".$request->query("delete")))){
+            unlink("img/" . $request->query("delete"));
+            redirect("/dashboard/image")->with("successMsg", "Gambar dihapus.");
+        }
+
+        $writer = Writer::find($request->session()->get("id"));
+
+        $images = [];
+        
+        foreach(File::allfiles(public_path("img/")) as $file){
+            array_push($images, [
+                "name" => pathinfo($file)["basename"],
+                "size" => formatSizeUnits(filesize($file))
+            ]);
+        }
+
+        $data = [
+            "writer" => $writer,
+            "images" => $images
+        ];
+
+        return view("dashboard.image", $data);
     }
 }

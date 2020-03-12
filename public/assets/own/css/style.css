@@ -208,14 +208,6 @@ button{
 }
 
 @media (min-width: 991.98px) {
-    .collapse.dont-collapse-xs {
-        display: block;
-        height: auto !important;
-        visibility: visible;
-    }
-}
-
-@media (min-width: 991.98px) {
     .header-top-right{
         padding-top: 2px;
         display: table;
@@ -310,6 +302,7 @@ button{
     flex-shrink: 0;
 }
 
+
 @media (max-width: 575.98px){
     .dashboard-header-toggler{
         visibility: visible;
@@ -319,6 +312,18 @@ button{
     .dahboard-sidebar{
         margin-bottom: 0;
         padding-bottom: 20px;
+    }
+}
+
+@media (max-width: 768px) {
+    .dashboard-grid-item{
+        width: 100%;
+    }
+}
+
+@media (min-width: 991.98px) {
+    .dashboard-grid-item{
+        width: 33.3%;
     }
 }
 
@@ -351,4 +356,12 @@ button{
 :focus {
     outline: none !important;
     box-shadow: none !important;
+}
+
+@media (min-width: 991.98px) {
+    .collapse.dont-collapse-xs {
+        display: block;
+        height: auto !important;
+        visibility: visible;
+    }
 }
