@@ -58,8 +58,8 @@
                 </div>
                 
                 <div class="modal-footer">
-                    <button type="button" class="btn btn-secondary" data-dismiss="modal">Batal</button>
-                    <a id="aModalDelete" href="/" class="btn btn-danger">Hapus</a>
+                    <button type="button" class="btn btn-secondary" data-dismiss="modal">BATAL</button>
+                    <a id="aModalDelete" href="/" class="btn btn-danger">HAPUS</a>
                 </div>
             </div>
         </div>

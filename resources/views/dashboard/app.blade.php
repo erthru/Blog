@@ -46,14 +46,14 @@
 
                         <hr />
 
-                        <a href="#">
+                        <a href="/dashboard/tag">
                             <div class="row">
                                 <div class="col-2 align-self-right">
                                     <i class="fas fa-hashtag" style="font-size: 24px"></i>
                                 </div>
 
                                 <div class="col-10">
-                                    <strong>Tags</strong>
+                                    <strong>Tag</strong>
                                 </div>
                             </div>
                         </a>

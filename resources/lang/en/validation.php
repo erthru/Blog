@@ -148,7 +148,8 @@ return [
 
     'attributes' => [
         "title" => "judul",
-        "body" => "isi"
+        "body" => "isi",
+        "name" => "nama"
     ],
 
 ];

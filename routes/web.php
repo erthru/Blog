@@ -24,6 +24,7 @@ Route::get("/dashboard/quote", "QuoteController@dashboardQuoteView");
 Route::get("/dashboard/quote/add", "QuoteController@dashboardQuoteAddView");
 Route::get("/dashboard/quote/update/{id}", "QuoteController@dashboardQuoteUpdateView");
 Route::get("/dashboard/quote/delete/{id}", "QuoteController@deleteAction");
+Route::get("/dashboard/tag", "TagController@DashboardTagView");
 
 // action
 Route::get("/dashboard/logout", "CredentialController@logoutAction");
@@ -33,3 +34,4 @@ Route::post("/dashboard/content/add", "ContentController@addAction");
 Route::post("/dashboard/content/update/{id}", "ContentController@updateAction");
 Route::post("/dashboard/quote/add", "QuoteController@addAction");
 Route::post("/dashboard/quote/update/{id}", "QuoteController@updateAction");
+Route::post("/dashboard/tag/update/{id}", "TagController@updateAction");
