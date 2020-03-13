@@ -94,6 +94,7 @@ class ContentController extends Controller
     public function detailView($url)
     {
         $content = Content::with("writer")->with("tag")->where("for_url", $url)->first();
+        $availableTags = Tag::select("*")->selectSub("COUNT(*)", "_total")->groupBy("name")->orderBy("id", "DESC")->get();
         
         if($content){
             $tagFromContent = "";
@@ -108,7 +109,8 @@ class ContentController extends Controller
 
             $data = [
                 "content" => $content,
-                "related" => $related
+                "related" => $related,
+                "availableTags" => $availableTags
             ];
 
             return view("index.detail", $data);
