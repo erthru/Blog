@@ -12,7 +12,7 @@
             <div class="dashboard-main-list mt-3">
                 <div class="dashboard-grid">
                     @foreach($images as $image)
-                        @if($image["name"] != "forGit")
+                        @if($image["name"] != "forGit" && $image["name"] != "default_thumbnail.jpg")
                         <div class="dashboard-grid-item">
                             <img src="{{ url('/img') . '/' . $image['name'] }}" width="100%"/>
                             
@@ -33,7 +33,7 @@
                 </div>
             </div>
 
-            @if(count($images) < 2)
+            @if(count($images) < 3)
                 <span class="center-block mt-4">Belum ada Data.</span>
             @endif
         </div>

@@ -6,6 +6,7 @@
 /public/avatar/*
 /public/img/*
 !/public/avatar/default_avatar.PNG
+!/public/avatar/default_thumbnail.PNG
 !/public/img/forGit
 .env
 .env.backup

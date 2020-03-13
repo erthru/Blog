@@ -11,12 +11,50 @@ use App\Writer;
 
 class ContentController extends Controller
 {
-    public function homeView()
+    public function homeView(Request $request)
     {
-        $contents = Content::with("writer")->orderBy("id", "DESC")->where("is_page", "0")->paginate(6);
+        $contents = Content::with("writer")->where("is_page", "0")->orderBy("id", "DESC")->paginate(6);
         $quotes = Quote::with("writer")->orderBy("id", "DESC")->paginate(3);
-
+        $availableTags = Tag::select("*")->selectSub("COUNT(*)", "_total")->groupBy("name")->orderBy("id", "DESC")->get();
+        $tags = null;
         $mix = [];
+
+        if(!empty($request->query("query"))){
+            $contents = Content::with("writer")
+            ->where("is_page", "0")
+            ->where("title", "LIKE", "%" . $request->query("query") . "%")
+            ->orWhere("body", "LIKE", "%" . $request->query("query") . "%")
+            ->orderBy("id", "DESC")
+            ->take(6)
+            ->get();
+
+            $quotes = Quote::with("writer")
+            ->where("quote", "LIKE", "%" . $request->query("query") . "%")
+            ->orderBy("id", "DESC")
+            ->take(3)
+            ->get();
+        }
+
+        if(!empty($request->query("popular_posts")) && $request->query("popular_posts") == "1"){
+            $contents = Content::with("writer")->where("is_page", "0")->orderBy("view", "DESC")->paginate(9);
+            $quotes = Quote::take(0)->get();
+        }
+
+        if(!empty($request->query("tag"))){
+            $tags = Tag::with("content")->where("name", $request->query("tag"))->paginate(9);
+            $contents = Content::take(0)->get();
+            $quotes = Quote::take(0)->get();
+            
+            foreach($tags as $tag){
+                array_push($mix, [
+                    "type" => "content",
+                    "content" => $tag->content,
+                    "quote" => null,
+                    "created_at" => strtok($tag->content->created_at, "T"),
+                    "updated_at" => strtok($tag->content->updated_at, "T"),
+                ]);
+            }
+        }
 
         foreach($contents as $content){
             array_push($mix, [
@@ -38,10 +76,16 @@ class ContentController extends Controller
             ]);
         } 
 
-        usort($mix, $this->buildSorter("created_at"));
+        if(empty($request->query("popular_posts")) && $request->query("popular_posts") != "1"){
+            usort($mix, $this->buildSorter("created_at"));
+        }
 
         $data = [
-            "mix" => (object) $mix
+            "mix" => $mix,
+            "contents" => $contents,
+            "quotes" => $quotes,
+            "availableTags" => $availableTags,
+            "tags" => $tags
         ];
 
         return view("index.home", $data);

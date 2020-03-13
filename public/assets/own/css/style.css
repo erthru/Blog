@@ -29,6 +29,11 @@ button{
     display: table;
 }
 
+.header-search{
+    margin-left: auto;
+    margin-top: 10px;
+}
+
 .header-title{
     background-color: white;
     text-align: center;
@@ -143,6 +148,21 @@ button{
 
 .main-related-list a:hover{
     text-decoration: none;
+}
+
+.main-pagination a{
+    color: black
+}
+
+.main-pagination a:hover{
+    background-color: black;
+    color: white;
+}
+
+.main-pagination > .pagination > .active a{
+    background-color: black;
+    border: 0;
+    margin-top: 1px;
 }
 
 .footer-section{

@@ -69,7 +69,7 @@
                         <div class="row">
                             @foreach($related as $item)
                                 <div class="col-12 col-md-4 pb-3">
-                                    <img src="{{ url('/img') . '/' . $item->content->thumb }}" width="100%" height="300px" class="pb-2"/>
+                                    <img src="{{ url('/img') . '/' . ($item->content->thumb == '' ? 'default_thumbnail.jpg' : $item->content->thumb) }}" width="100%" height="300px" class="pb-2"/>
                                     <a href="/{{ preg_replace('/\s+/', '-', strtolower($item->content->title)) }}" class="h5">{{ $item->content->title }}</a>
                                 </div>
                             @endforeach
