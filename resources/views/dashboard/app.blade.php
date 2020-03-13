@@ -74,7 +74,7 @@
 
                         <hr />
 
-                        <a href="#">
+                        <a href="/dashboard/profile">
                             <div class="row">
                                 <div class="col-2 align-self-right">
                                     <i class="fas fa-user" style="font-size: 24px"></i>

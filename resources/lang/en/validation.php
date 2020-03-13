@@ -149,7 +149,8 @@ return [
     'attributes' => [
         "title" => "judul",
         "body" => "isi",
-        "name" => "nama"
+        "name" => "nama",
+        "full_name" => "nama lengkap"
     ],
 
 ];
