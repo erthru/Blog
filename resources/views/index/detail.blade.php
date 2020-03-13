@@ -33,7 +33,7 @@
                 @if(count($content->tag) != 0)
                     <div class="main-tags">
                         @foreach($content->tag as $tag)
-                            <a href="/?tag=/{{ $tag->name }}">{{ $tag->name }}</a>
+                            <a href="/?tag={{ $tag->name }}">{{ $tag->name }}</a>
                         @endforeach
                     </div>
                 @endif
