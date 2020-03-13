@@ -3,6 +3,10 @@
 <meta name="description" content="Build with laravel 7, and bootstrap 4.4">
 <meta name="author" content="Erthru">
 
+<link rel="icon" type="image/png" sizes="32x32" href="{{ url('/favicon-32x32.png') }}">
+<link rel="icon" type="image/png" sizes="96x96" href="{{ url('/favicon-96x96.png') }}">
+<link rel="icon" type="image/png" sizes="16x16" href="{{ url('/favicon-16x16.png') }}">
+
 <link rel="stylesheet" href="{{ url('/assets/bootstrap/css/bootstrap.css') }}">
 <link rel="stylesheet" href="{{ url('/assets/font-awesome/css/fa.css') }}">
 <link rel="stylesheet" href="{{ url('/assets/own/css/style.css') }}">
