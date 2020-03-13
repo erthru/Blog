@@ -97,6 +97,9 @@ class ContentController extends Controller
         $availableTags = Tag::select("*")->selectSub("COUNT(*)", "_total")->groupBy("name")->orderBy("id", "DESC")->get();
         
         if($content){
+            $contentFromId = Content::find($content->id);
+            $contentFromId->update(["view" => $contentFromId->view +=1 ]);
+
             $tagFromContent = "";
 
             foreach($content->tag as $tag){

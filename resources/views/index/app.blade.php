@@ -49,7 +49,7 @@
                     <hr />
                     <ul class="nav header-nav-content justify-content-center">
                         <li class="nav-item"><a class="nav-link" href="/"><strong>BERANDA</strong></a></li>
-                        <li class="nav-item"><a class="nav-link" href="?popular_posts=1"><strong>POSTINGAN POPULER</strong></a></li>
+                        <li class="nav-item"><a class="nav-link" href="/?popular_posts=1"><strong>POSTINGAN POPULER</strong></a></li>
                         <li class="nav-item"><a class="nav-link" href="#modalTag" data-toggle="modal"><strong>TAG</strong></a></li>
                         <li class="nav-item"><a class="nav-link" href="/kebijakan-pribadi"><strong>KEBIJAKAN PRIBADI</strong></a></li>
                     </ul>
@@ -76,7 +76,7 @@
                         
                         <div class="modal-body">
                             @foreach($availableTags as $tag)
-                                <a href="?tag={{ $tag->name }}" style="color: black">{{ $tag->name }} ({{ $tag->_total }})</a>
+                                <a href="/?tag={{ $tag->name }}" style="color: black">{{ $tag->name }} ({{ $tag->_total }})</a>
                                 <br />
                             @endforeach
                         </div>
