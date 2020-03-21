@@ -10,6 +10,10 @@ class ExternalController extends Controller
 {
     public function ckEditorUploadImage(Request $request)
     {
+        if(!$request->session()->has("id")){
+            return redirect("/dashboard/login");
+        }
+        
         if($request->hasFile("upload")){
             $ckeditor = uniqid(). ".jpg";
 
