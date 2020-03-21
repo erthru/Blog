@@ -1,6 +1,6 @@
 <meta charset="utf-8">
 <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
-<meta name="description" content="Build with laravel 7, and bootstrap 4.4">
+<meta name="description" content="Erthru blog, status, harian, informasi, dll">
 <meta name="author" content="Erthru">
 
 <link rel="icon" type="image/png" sizes="32x32" href="{{ url('/favicon-32x32.png') }}">
